@@ -4,6 +4,7 @@ from telegram.ext import Updater, MessageHandler, Filters
 # The messageHandler is used for all message updates
 import configparser
 import logging
+import mysql.connector
 
 
 def main():
