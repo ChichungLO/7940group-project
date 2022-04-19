@@ -1,8 +1,8 @@
 #chatbot_test.py
 from telegram import Update
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext, CallbackQueryHandler
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext, CallbackQueryHandler, InlineQueryHandler
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-
+import re
 import configparser
 import logging
 
@@ -40,7 +40,7 @@ def main():
     dispatcher.add_handler(CommandHandler("start", start))
     #dispatcher.add_handler(CommandHandler("add", add))
     dispatcher.add_handler(CommandHandler("help", help_command))
-
+    dispatcher.add_handler(CommandHandler('route', travel_route))
     dispatcher.add_handler(CommandHandler('cook', cook))
     dispatcher.add_handler(CallbackQueryHandler(main_menu, pattern='main'))
     dispatcher.add_handler(CallbackQueryHandler(first_menu, pattern='m1'))
@@ -89,6 +89,16 @@ def help_command(update: Update, context: CallbackContext) -> None:
 #         update.message.reply_text('You have said ' + msg +  ' for ' + redis1.get(msg).decode('UTF-8') + ' times.')
 #     except (IndexError, ValueError):
 #         update.message.reply_text('Usage: /add <keyword>')
+
+
+def travel_route(update, context):
+    url_get = update.message.text[7:]
+    print(url_get)
+    context.bot.send_photo(chat_id=-745724043, photo=url_get)
+    context.bot.send_message(chat_id=update.effective_chat.id, text= 'Image has already sent to Group13')
+
+#1008060107 /lcc chat_id
+#-745724043 /our group chat_id
 
 def cook_stat(update, context):
     global cur, cnx
@@ -184,6 +194,7 @@ def return_menu_keyboard():
   keyboard = [[InlineKeyboardButton('⬅️ Main menu', callback_data='main')]]
   return InlineKeyboardMarkup(keyboard)
 
+
 def main_menu_message():
   return 'Choose the option in main menu:'
 
@@ -204,6 +215,7 @@ def second_submenu1_message():
 
 def second_submenu2_message():
     return 'https://www.youtube.com/watch?v=iM_KMYulI_s'
+
 
 
 if __name__ == '__main__':
