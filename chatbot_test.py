@@ -144,17 +144,17 @@ def main_menu_keyboard():
 def first_menu_keyboard():
   keyboard = [[InlineKeyboardButton('Fried eggs with Tomato', callback_data='fm1')],
               [InlineKeyboardButton('Mapo Tofu', callback_data='fm2')],
-              [InlineKeyboardButton('Main menu', callback_data='main')]]
+              [InlineKeyboardButton('⬅️ Main menu', callback_data='main')]]
   return InlineKeyboardMarkup(keyboard)
 
 def second_menu_keyboard():
   keyboard = [[InlineKeyboardButton('Fish and Chips', callback_data='sm1')],
               [InlineKeyboardButton('Hamburger', callback_data='sm2')],
-              [InlineKeyboardButton('Main menu', callback_data='main')]]
+              [InlineKeyboardButton('⬅️ Main menuu', callback_data='main')]]
   return InlineKeyboardMarkup(keyboard)
 
 def return_menu_keyboard():
-  keyboard = [[InlineKeyboardButton('Main menu', callback_data='main')]]
+  keyboard = [[InlineKeyboardButton('⬅️ Main menu', callback_data='main')]]
   return InlineKeyboardMarkup(keyboard)
 
 def main_menu_message():
