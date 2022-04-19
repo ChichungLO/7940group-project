@@ -71,11 +71,11 @@ def echo(update, context):
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update: Update, context: CallbackContext):
     update.message.reply_text(
-        "This is a cooking video recommendation robot! \nType /cook to see which food you like!")
+        "This is a multi-function chatbot! \nYou can learn cooking and share travelling here!\nType /help to get more information!")
 
 def help_command(update: Update, context: CallbackContext) -> None:
     """Send a message when the command /help is issued."""
-    update.message.reply_text('To see the cook video menu:\n /cook\n\nTo see the most popular cook video:\n /stat')
+    update.message.reply_text('To see the cook video menu:\n /cook\n\nTo see the most popular cook video:\n /stat\n\nTo share the photo with friends:\n /route URL')
 
 
 
