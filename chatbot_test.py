@@ -40,13 +40,13 @@ def main():
     dispatcher.add_handler(CallbackQueryHandler(first_menu, pattern='m1'))
     dispatcher.add_handler(CallbackQueryHandler(second_menu, pattern='m2'))
     dispatcher.add_handler(CallbackQueryHandler(first_submenu1,
-                                                pattern='m1_1'))
+                                                pattern='fm1'))
     dispatcher.add_handler(CallbackQueryHandler(second_submenu1,
-                                                pattern='m2_1'))
+                                                pattern='sm1'))
     dispatcher.add_handler(CallbackQueryHandler(first_submenu2,
-                                                pattern='m1_2'))
+                                                pattern='fm2'))
     dispatcher.add_handler(CallbackQueryHandler(second_submenu2,
-                                                pattern='m2_2'))
+                                                pattern='sm2'))
 
     # To start the bot:
     updater.start_polling()
@@ -101,16 +101,19 @@ def second_menu(update,context):
                             reply_markup=second_menu_keyboard())
 
 def first_submenu1(bot, update):
-    update.message.reply_text('You choose first submenu1')
+    query = bot.callback_query
+    query.answer()
+    query.edit_message_text(text=first_submenu1_message(),
+                            reply_markup=first_submenu1_keyboard())
 
 def first_submenu2(bot, update):
-    update.message.reply_text('You choose first submenu2')
+    pass
 
 def second_submenu1(bot, update):
-    update.message.reply_text('You choose second submenu1')
+    pass
 
 def second_submenu2(bot, update):
-    update.message.reply_text('You choose second submenu2')
+    pass
 
 def main_menu_keyboard():
   keyboard = [[InlineKeyboardButton('Chinese food', callback_data='m1')],
@@ -118,15 +121,19 @@ def main_menu_keyboard():
   return InlineKeyboardMarkup(keyboard)
 
 def first_menu_keyboard():
-  keyboard = [[InlineKeyboardButton('Tomato egg', callback_data='m1_1')],
-              [InlineKeyboardButton('potato egg', callback_data='m1_2')],
+  keyboard = [[InlineKeyboardButton('Tomato egg', callback_data='fm1')],
+              [InlineKeyboardButton('potato egg', callback_data='fm2')],
               [InlineKeyboardButton('Main menu', callback_data='main')]]
   return InlineKeyboardMarkup(keyboard)
 
 def second_menu_keyboard():
-  keyboard = [[InlineKeyboardButton('fried chips', callback_data='m2_1')],
-              [InlineKeyboardButton('hamburger', callback_data='m2_2')],
+  keyboard = [[InlineKeyboardButton('fried chips', callback_data='sm1')],
+              [InlineKeyboardButton('hamburger', callback_data='sm2')],
               [InlineKeyboardButton('Main menu', callback_data='main')]]
+  return InlineKeyboardMarkup(keyboard)
+
+def first_submenu1_keyboard():
+  keyboard = [[InlineKeyboardButton('Main menu', callback_data='main')]]
   return InlineKeyboardMarkup(keyboard)
 
 def main_menu_message():
@@ -137,6 +144,9 @@ def first_menu_message():
 
 def second_menu_message():
   return 'Choose the food in Western food menu:'
+
+def first_submenu1_message():
+    return 'https://www.bilibili.com/video/BV1PW411T7YB'
 
 
 if __name__ == '__main__':
