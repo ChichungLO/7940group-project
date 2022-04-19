@@ -1,4 +1,4 @@
 telegram
 configparser
 redis
-pyodbc
+mysql.connector
