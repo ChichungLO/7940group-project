@@ -53,7 +53,7 @@ def main():
     dispatcher.add_handler(CallbackQueryHandler(second_submenu2,
                                                 pattern='sm2'))
     #cook video click times stats
-    #dispatcher.add_handler(CommandHandler('stat', cook_stat))
+    dispatcher.add_handler(CommandHandler('stat', cook_stat))
 
     # To start the bot:
     updater.start_polling()
@@ -85,7 +85,19 @@ def add(update: Update, context: CallbackContext) -> None:
     except (IndexError, ValueError):
         update.message.reply_text('Usage: /add <keyword>')
 
-#def cook_stat(update, context):
+def cook_stat(update, context):
+    global cur, cnx
+    cur.execute("SELECT NAME, TIMES FROM COOK WHERE TIMES = (SELECT MAX(TIMES) FROM COOK)")
+    rows = cur.fetchall()
+    for row in rows:
+        if row[0] == 'tomato':
+            update.message.reply_text('The most popular cooking video is Fried eggs with Tomato! \n【' + str(row[1]) + '】 clicks.')
+        elif row[0] == 'tofu':
+            update.message.reply_text('The most popular cooking video is Mapo Tofu! \n【' + str(row[1]) + '】 clicks.')
+        elif row[0] == 'chips':
+            update.message.reply_text('The most popular cooking video is Fish and Chips! \n【' + str(row[1]) + '】 clicks.')
+        else:
+            update.message.reply_text('The most popular cooking video is Hamburger! \n【' + str(row[1]) + '】 clicks.')
 
 
 def cook(update, context):
@@ -115,26 +127,36 @@ def first_submenu1(bot, update):
     query.answer()
     query.edit_message_text(text=first_submenu1_message(),
                             reply_markup=return_menu_keyboard())
-    global cur
+    global cur, cnx
     cur.execute("UPDATE COOK SET TIMES = TIMES+1 WHERE name='tomato'")
+    cnx.commit()
 
 def first_submenu2(bot, update):
     query = bot.callback_query
     query.answer()
     query.edit_message_text(text=first_submenu2_message(),
                             reply_markup=return_menu_keyboard())
+    global cur, cnx
+    cur.execute("UPDATE COOK SET TIMES = TIMES+1 WHERE name='tofu'")
+    cnx.commit()
 
 def second_submenu1(bot, update):
     query = bot.callback_query
     query.answer()
     query.edit_message_text(text=second_submenu1_message(),
                             reply_markup=return_menu_keyboard())
+    global cur, cnx
+    cur.execute("UPDATE COOK SET TIMES = TIMES+1 WHERE name='chips'")
+    cnx.commit()
 
 def second_submenu2(bot, update):
     query = bot.callback_query
     query.answer()
     query.edit_message_text(text=second_submenu2_message(),
                             reply_markup=return_menu_keyboard())
+    global cur, cnx
+    cur.execute("UPDATE COOK SET TIMES = TIMES+1 WHERE name='burger'")
+    cnx.commit()
 
 def main_menu_keyboard():
   keyboard = [[InlineKeyboardButton('Chinese food', callback_data='m1')],

@@ -23,7 +23,7 @@ cur = conn.cursor()
 # for table in cur.fetchall():
 #     print(table)
 
-cur.execute("SELECT ID, NAME, TIMES FROM COOK")
+cur.execute("SELECT ID, NAME, TIMES FROM COOK ORDER BY ID")
 rows = cur.fetchall()
 for row in rows:
     print("ID = ", row[0])
