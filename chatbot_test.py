@@ -104,16 +104,25 @@ def first_submenu1(bot, update):
     query = bot.callback_query
     query.answer()
     query.edit_message_text(text=first_submenu1_message(),
-                            reply_markup=first_submenu1_keyboard())
+                            reply_markup=return_menu_keyboard())
 
 def first_submenu2(bot, update):
-    pass
+    query = bot.callback_query
+    query.answer()
+    query.edit_message_text(text=first_submenu2_message(),
+                            reply_markup=return_menu_keyboard())
 
 def second_submenu1(bot, update):
-    pass
+    query = bot.callback_query
+    query.answer()
+    query.edit_message_text(text=second_submenu1_message(),
+                            reply_markup=return_menu_keyboard())
 
 def second_submenu2(bot, update):
-    pass
+    query = bot.callback_query
+    query.answer()
+    query.edit_message_text(text=second_submenu2_message(),
+                            reply_markup=return_menu_keyboard())
 
 def main_menu_keyboard():
   keyboard = [[InlineKeyboardButton('Chinese food', callback_data='m1')],
@@ -121,18 +130,18 @@ def main_menu_keyboard():
   return InlineKeyboardMarkup(keyboard)
 
 def first_menu_keyboard():
-  keyboard = [[InlineKeyboardButton('Tomato egg', callback_data='fm1')],
-              [InlineKeyboardButton('potato egg', callback_data='fm2')],
+  keyboard = [[InlineKeyboardButton('Fried eggs with Tomato', callback_data='fm1')],
+              [InlineKeyboardButton('Mapo Tofu', callback_data='fm2')],
               [InlineKeyboardButton('Main menu', callback_data='main')]]
   return InlineKeyboardMarkup(keyboard)
 
 def second_menu_keyboard():
-  keyboard = [[InlineKeyboardButton('fried chips', callback_data='sm1')],
-              [InlineKeyboardButton('hamburger', callback_data='sm2')],
+  keyboard = [[InlineKeyboardButton('Fish and Chips', callback_data='sm1')],
+              [InlineKeyboardButton('Hamburger', callback_data='sm2')],
               [InlineKeyboardButton('Main menu', callback_data='main')]]
   return InlineKeyboardMarkup(keyboard)
 
-def first_submenu1_keyboard():
+def return_menu_keyboard():
   keyboard = [[InlineKeyboardButton('Main menu', callback_data='main')]]
   return InlineKeyboardMarkup(keyboard)
 
@@ -146,7 +155,16 @@ def second_menu_message():
   return 'Choose the food in Western food menu:'
 
 def first_submenu1_message():
-    return 'https://www.bilibili.com/video/BV1PW411T7YB'
+    return 'https://www.youtube.com/watch?v=2hvQFxZBTVY'
+
+def first_submenu2_message():
+    return 'https://www.youtube.com/watch?v=ZfsZwwrTFD4'
+
+def second_submenu1_message():
+    return 'https://www.youtube.com/watch?v=zit9l5jtbws'
+
+def second_submenu2_message():
+    return 'https://www.youtube.com/watch?v=iM_KMYulI_s'
 
 
 if __name__ == '__main__':
