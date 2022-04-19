@@ -1,0 +1,4 @@
+build:
+  chatbot:
+    context: telegram
+    dockerfile: Dockerfile
