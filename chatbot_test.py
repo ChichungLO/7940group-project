@@ -37,6 +37,7 @@ def main():
     dispatcher.add_handler(echo_handler)
 
     # on different commands - answer in Telegram
+    dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CommandHandler("add", add))
     dispatcher.add_handler(CommandHandler("help", help_command))
 
@@ -60,6 +61,7 @@ def main():
     updater.idle()
 
 
+
 def echo(update, context):
     reply_message = update.message.text.upper()
     logging.info("Update: " + str(update))
@@ -69,6 +71,10 @@ def echo(update, context):
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
+def start(update: Update, context: CallbackContext):
+    update.message.reply_text(
+        "This is a cooking video recommendation robot! type /cook to see which food you like!")
+
 def help_command(update: Update, context: CallbackContext) -> None:
     """Send a message when the command /help is issued."""
     update.message.reply_text('Helping you helping you.')
