@@ -6,9 +6,10 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 import configparser
 import logging
 
-import mysql.connector
+import psycopg2
 
 global cnx
+global cur
 
 def main():
     # Load your token and create an Updater for your Bot
@@ -19,9 +20,13 @@ def main():
     dispatcher = updater.dispatcher
 
     global cnx
-    cnx = mysql.connector.connect(user='comp7940gp13', password='comp7940gp13',
-                              host='106.52.171.168',
-                              database='comp7940gp13')
+    cnx = psycopg2.connect(host="ec2-44-194-4-127.compute-1.amazonaws.com", 
+                user="kouyhyskzsssia", 
+                dbname="d9meetj91bb2ms",
+                password="f21744c8bfe917ea276c6b044fcf0362e50920f32143a927489d076b6d44493a", 
+                sslmode='require')
+    global cur 
+    cur = cnx.cursor()
 
     # You can set this logging module, so you will know when and why things do not work as expected
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -47,6 +52,8 @@ def main():
                                                 pattern='fm2'))
     dispatcher.add_handler(CallbackQueryHandler(second_submenu2,
                                                 pattern='sm2'))
+    #cook video click times stats
+    #dispatcher.add_handler(CommandHandler('stat', cook_stat))
 
     # To start the bot:
     updater.start_polling()
@@ -78,6 +85,9 @@ def add(update: Update, context: CallbackContext) -> None:
     except (IndexError, ValueError):
         update.message.reply_text('Usage: /add <keyword>')
 
+#def cook_stat(update, context):
+
+
 def cook(update, context):
     update.message.reply_text(main_menu_message(),
                             reply_markup=main_menu_keyboard())
@@ -105,6 +115,8 @@ def first_submenu1(bot, update):
     query.answer()
     query.edit_message_text(text=first_submenu1_message(),
                             reply_markup=return_menu_keyboard())
+    global cur
+    cur.execute("UPDATE COOK SET TIMES = TIMES+1 WHERE name='tomato'")
 
 def first_submenu2(bot, update):
     query = bot.callback_query
