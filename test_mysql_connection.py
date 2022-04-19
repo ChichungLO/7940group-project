@@ -1,8 +1,8 @@
 import pyodbc
 server = 'comp7940gp13.database.windows.net'
-database = '<comp7940gp13>'
-username = '<comp7940gp13>'
-password = '{<comp7940_gp13>}'
+database = 'comp7940gp13'
+username = 'comp7940gp13'
+password = '{comp7940_gp13}'
 driver = '{ODBC Driver 17 for SQL Server}'
 
 with pyodbc.connect('DRIVER='+driver+';SERVER=tcp:'+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD=' + password) as conn:
