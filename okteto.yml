@@ -2,3 +2,6 @@ build:
   chatbot:
     context: telegram
     dockerfile: Dockerfile
+  
+deploy:
+dev:
