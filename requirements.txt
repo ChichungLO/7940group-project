@@ -1,4 +1,5 @@
-telegram
+# telegram
+python-telegram-bot
 configparser
 redis
 mysql.connector
